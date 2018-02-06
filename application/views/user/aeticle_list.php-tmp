@@ -1,0 +1,5 @@
+<?php include ("article_header.php");?>
+
+
+
+<?php include ("article_footer.php");?>

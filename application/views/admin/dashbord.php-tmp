@@ -1,0 +1,43 @@
+<?php include ("admin_header.php");?>
+<div class="container">
+
+	<div class="row"></div>
+	<div class="col-gl 6 pull-right">
+<?php if ($feedback = $this->session->flashdata('feedback')):
+
+$feeddback_class = $this->session->flashdata('feedback_class');
+?>
+<div class="alert alert-dismissible <?php echo $feeddback_class?>">
+<?php echo $feedback?>
+</div>
+</div>
+</div>
+<?php endif;?>
+	<!-- <div class="row">
+<div class="col-gl-6 col-lg-offset-6 " >	 -->
+<!-- <a href="<?php?>add_article" class="btn btn-lg btn-primary pull-right" > add new article</a> -->
+<a href="<?php echo base_url()?>admin/add_article" class=btn btn-primary>click here for add</a>
+</div>
+</div>
+	<table class="table">
+<!-- <head> -->
+    <th>SR NO</th>
+	<th>Title</th>
+	<th>Action</th>
+</head>
+
+<?php foreach ($article as $value) {?>
+
+	<tr>
+		<td>1</td>
+		<td><?php echo $value->title?></td>
+			<td><a href="<?php base_url()?>find_article/<?php echo $value->id?>">Edite</a>
+	<td>
+
+		<a href="" class="btn btn-danger">Delete</a></td>
+	</tr>
+
+	<?php }?>
+</table>
+
+<?php include ("admin_footer.php");?>

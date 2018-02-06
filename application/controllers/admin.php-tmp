@@ -1,0 +1,62 @@
+<?php if (!defined('BASEPATH')) {exit('No direct script access allowed');
+}
+
+class Admin extends CI_Controller {
+
+	public function __construct() {
+		parent::__construct();
+		if (!$this->session->userdata('id')) {
+			return redirect('login');
+		}
+	}
+
+	public function dasbord() {
+		$this->load->model("articlemodel", 'article', true);
+		$article['article'] = $this->article->article();
+		$this->load->view('admin/dashbord', $article);
+	}
+
+	public function add_article() {
+		$this->load->view("admin/article_add");
+	}
+	public function store_article() {
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('title', 'Title', 'required');
+		$this->form_validation->set_rules('body', 'Body', 'required');
+
+		if ($this->form_validation->run()) {
+			//$title=$this->input->post('title');
+			$post = $this->input->post();
+			//print_r($post);
+
+			$this->load->model('articlemodel');
+			if ($this->articlemodel->add_new($post)) {
+
+				$this->session->set_flashdata('feedback', 'sucessfully add ');
+				$this->session->set_flashdata('feedback_class', "alert-success");
+			} else {
+				$this->session->set_flashdata('feedback', 'article did not added');
+				$this->session->set_flashdata('feedback_class', "alert-danger");
+				//echo "fail";
+			}
+
+			return redirect('admin/dasbord', 'refresh');
+
+		} else {
+			$this->load->view('admin/article_add');
+
+		}
+
+	}
+
+	public function find_article($article) {
+		$this->load->model("articlemodel");
+		$data['article'] = $this->articlemodel->find_article($article);
+		//$data['article']=$article;
+		//print_r($article);
+		$this->load->view('admin/update_articel', $data);
+
+	}
+
+}

@@ -1,0 +1,29 @@
+<?php include ('admin_header.php');?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class="container">
+
+<div class="row">
+	<div class="col-lg-6">
+
+
+<form method="post" action="<?php echo base_url()?>admin/store_article">
+
+<?php echo form_hidden('id', $this->session->userdata('id'));?>
+TITLE:<input type="text" name="title"></br>
+<span><?php echo form_error('title', "<p class='text-danger'>", "</p>");?></span>
+ BODY:<textarea rows="4" cols="50" name="body"></textarea></br>
+  <span><?php echo form_error('body', "<p class='text-danger'>", "</p>");?></span>
+ <input type="submit" name="submit" value="Add new item">
+
+<form>
+</body>
+</html>
+</div>
+
+<?php include ('admin_footer.php');?>
